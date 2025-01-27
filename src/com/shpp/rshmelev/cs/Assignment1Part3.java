@@ -25,5 +25,4 @@ public class Assignment1Part3 extends SuperKarel {
             putBeeper(); // Otherwise, place a beeper at the current position
         }
     }
-
 }

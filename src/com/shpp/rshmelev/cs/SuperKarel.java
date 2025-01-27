@@ -4,9 +4,8 @@ import com.shpp.karel.KarelTheRobot;
 
 public class SuperKarel extends KarelTheRobot {
     // The main method to be overridden by subclasses
-    public void run() throws Exception{
+    public void run() throws Exception {}
 
-    }
     // Turns Karel 90 degrees to the right by making three left turns
     public void turnRight() throws Exception {
         turnLeft();

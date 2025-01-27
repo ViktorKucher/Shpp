@@ -5,43 +5,39 @@ public class Assignment1Part4 extends SuperKarel {
     public void run() throws Exception {
         fillСhessRow(); // Start by filling the current row with beepers
     }
-
     // Method to fill the current row in a "chessboard" pattern
     private void fillСhessRow() throws Exception {
-        while (true) {
+        putBeeper();
+        if (frontIsClear()) {
+            move(); // Move one step forward
             if (frontIsClear()) {
-                putBeeper(); // Place a beeper if the current cell is empty
                 move(); // Move one step forward
-
-                if (frontIsClear()) {
-                    move(); // Skip one cell to create the chessboard pattern
-                } else {
-                    moveToNextRow(); // If the path is blocked, move to the next row
-                    break;
-                }
+                fillСhessRow();
             } else {
-                break;
+                // If the path ends and Karel is facing West, move to the next row
+                if (facingWest() && rightIsClear()) {
+                    turnRight(); // Turn right to face the next row
+                    move(); // Move up to the next row
+                    turnRight(); // Turn right again to face East
+                    fillСhessRow();
+                }
+                // If the path ends and Karel is facing East, move to the next row
+                if (facingEast() && leftIsClear()) {
+                    turnLeft(); // Turn left to face the next row
+                    move(); // Move up to the next row
+                    turnLeft();// Turn left again to face West
+                    fillСhessRow();
+                }
             }
-        }
-    }
-
-    // Method to move Karel to the next row
-    private void moveToNextRow() throws Exception {
-        if (facingEast()) { // If Karel is facing East
-            if (leftIsClear()) { // Check if there is a row above
+        } else {
+            // If the path ends and Karel is facing East and the beeper not in position, move to the next row
+            if (facingEast() && leftIsClear()) {
                 turnLeft(); // Turn left to face the next row
                 move(); // Move up to the next row
-                turnLeft(); // Turn left again to face West
-            }
-        } else if (facingWest()) { // If Karel is facing West
-            if (rightIsClear()) { // Check if there is a row above
-                turnRight(); // Turn right to face the next row
-                move(); // Move up to the next row
-                turnRight(); // Turn right again to face East
-
+                turnLeft();// Turn left again to face West
+                move();
+                fillСhessRow();
             }
         }
-        // After moving to the next row, continue filling the chessboard pattern
-        fillСhessRow();
     }
 }
